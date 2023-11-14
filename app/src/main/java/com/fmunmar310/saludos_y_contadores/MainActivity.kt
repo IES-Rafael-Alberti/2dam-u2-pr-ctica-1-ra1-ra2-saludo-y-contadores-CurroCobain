@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Saludos_y_ContadoresTheme {
-                // A surface container using the 'background' color from the theme
+                // Pantalla Principal
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -56,19 +56,25 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun SaludoYcontadores(){
+    // Declaración de variables
     var name by rememberSaveable { mutableStateOf("") }
     var accept by rememberSaveable { mutableStateOf(0) }
     var cancel by rememberSaveable { mutableStateOf(0) }
     var showDialog by rememberSaveable { mutableStateOf(false) }
+    // Se muestra el diálogo cuando la variable "showdialog" es true
     if (showDialog){
         MyAlertDialog(
             onDismissRequest = {showDialog = false} ,
-            onConfirmation = {accept++}, accValue = {accept.toString()},
-            onCancel = {cancel++}, canValue = {cancel.toString()},
-            onTextChange = {it : String -> name = it}, nameValue = {name}
+            onConfirmation = {accept++}, // aumenta en 1 el valor de accept
+            accValue = {accept.toString()}, // devuelve el valor actual de accept
+            onCancel = {cancel++},  // aumenta en 1 el valor de cancel
+            canValue = {cancel.toString()}, // devuelve el valor actual de cancel
+            onTextChange = {it : String -> name = it}, //cambia el valor de name
+            nameValue = {name} // devuelve el valor de name
             )
 
     }
+    // Diseño de la pantalla principal que contine un botón y un texto
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -100,7 +106,7 @@ fun MyAlertDialog(
     nameValue : () ->String
 
 ) {
-
+    // Creamos un diálogo personalizado con varias opciones "botones" y un cuadro de texto en el que ingresaremos el nombre
     Dialog(
         onDismissRequest = {
             onDismissRequest()
@@ -131,6 +137,7 @@ fun MyAlertDialog(
                                 .padding(bottom = 15.dp)
                         )
                     }
+                    // Botones de aceptar, cancelar y limpiar
                     Row(modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 15.dp),
